@@ -1,0 +1,51 @@
+{% extends 'order/base.html' %}
+
+{% block title %}
+    <title>Топ 20 товаров</title>
+{% endblock title %}
+
+{% block h1 %}
+    <h1 class="text-center my-5">Топ 20 товаров</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        <div class="form-group">
+            <div class="input-group input-daterange" style="width: 510px">
+                {{ form.start_date }}
+                <div class="input-group-addon mx-2 pt-1">-</div>
+                {{ form.end_date }}
+                <div class="input-group" style="width: 110px">
+                    <span class="input-group-addon ms-3 me-2 pt-1">Top:</span>
+                    {{ form.top }}
+                </div>
+                <button type="submit" class="btn btn-secondary">Применить</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Имя товара</th>
+            <th scope="col">Заказы</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in object_list %}
+            <tr>
+                <td>{{ product.product_name }} </td>
+                <td>
+                    {% for order in product.orders %}
+                        Заказ {{ order.number }} - Цена {{ order.price }} - Дата {{ order.create_date }}
+
+                        <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock content %}
